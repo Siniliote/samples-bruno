@@ -8,7 +8,7 @@ http:
   url: "{{baseUrl}}/api/users/:id"
   params:
     - name: id
-      value: ""
+      value: "1"
       type: path
   body:
     type: json
@@ -22,7 +22,7 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
+  - name: 422 Unprocessable Entity
     request:
       url: "{{baseUrl}}/api/users/:id"
       method: PUT
@@ -34,8 +34,113 @@ examples:
         type: json
         data: "{}"
     response:
-      status: 200
-      statusText: OK
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: access-control-allow-credentials
+          value: "true"
+        - name: vary
+          value: "*"
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-methods
+          value: PUT
+        - name: access-control-allow-headers
+          value: accept, content-type, user-agent, content-length, accept-encoding, host, connection, request-start-time
+        - name: access-control-expose-headers
+          value: accept, content-type, user-agent, content-length, accept-encoding, host, connection, request-start-time
+        - name: content-type
+          value: application/json
+        - name: date
+          value: Sat, 15 Aug 2026 15:49:17 GMT
+        - name: content-length
+          value: "1017"
+      body:
+        type: json
+        data: |-
+          {
+            "type": "validation",
+            "on": "params",
+            "property": "/id",
+            "message": "Expected union value",
+            "summary": "Property 'id' should be one of: 'numeric', 'number'",
+            "expected": {
+              "id": 0
+            },
+            "found": {
+              "id": ":id"
+            },
+            "errors": [
+              {
+                "type": 62,
+                "schema": {
+                  "anyOf": [
+                    {
+                      "format": "numeric",
+                      "default": 0,
+                      "type": "string"
+                    },
+                    {
+                      "type": "number",
+                      "anyOf": [
+                        {
+                          "format": "numeric",
+                          "default": 0,
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "path": "/id",
+                "value": ":id",
+                "message": "Expected union value",
+                "errors": [
+                  {
+                    "iterator": {}
+                  },
+                  {
+                    "iterator": {}
+                  }
+                ],
+                "summary": "Property 'id' should be one of: 'numeric', 'number'"
+              }
+            ]
+          }
+  - name: 204 No Content
+    request:
+      url: "{{baseUrl}}/api/users/:id"
+      method: PUT
+      params:
+        - name: id
+          value: "1"
+          type: path
+      body:
+        type: json
+        data: "{}"
+    response:
+      status: 204
+      statusText: No Content
+      headers:
+        - name: access-control-allow-credentials
+          value: "true"
+        - name: vary
+          value: "*"
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-methods
+          value: PUT
+        - name: access-control-allow-headers
+          value: accept, content-type, user-agent, content-length, accept-encoding, host, connection, request-start-time
+        - name: access-control-expose-headers
+          value: accept, content-type, user-agent, content-length, accept-encoding, host, connection, request-start-time
+        - name: date
+          value: Sat, 15 Aug 2026 15:52:27 GMT
+        - name: content-length
+          value: "0"
       body:
         type: text
         data: ""
