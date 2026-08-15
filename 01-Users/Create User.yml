@@ -1,11 +1,14 @@
 info:
-  name: Checkout Order
+  name: Create User
   type: http
-  seq: 8
+  seq: 1
 
 http:
   method: POST
-  url: "{{baseUrl}}/api/orders"
+  url: "{{baseUrl}}/api/users"
+  body:
+    type: json
+    data: "{}"
   auth: inherit
 
 settings:
@@ -17,8 +20,11 @@ settings:
 examples:
   - name: 201 Created
     request:
-      url: "{{baseUrl}}/api/orders"
+      url: "{{baseUrl}}/api/users"
       method: POST
+      body:
+        type: json
+        data: "{}"
     response:
       status: 201
       statusText: Created
@@ -32,19 +38,19 @@ examples:
         - name: access-control-allow-methods
           value: POST
         - name: access-control-allow-headers
-          value: accept, user-agent, accept-encoding, host, connection, content-length, request-start-time
+          value: accept, content-type, user-agent, content-length, accept-encoding, host, connection, request-start-time
         - name: access-control-expose-headers
-          value: accept, user-agent, accept-encoding, host, connection, content-length, request-start-time
+          value: accept, content-type, user-agent, content-length, accept-encoding, host, connection, request-start-time
         - name: content-type
           value: application/json;charset=utf-8
         - name: date
-          value: Sat, 15 Aug 2026 15:53:41 GMT
+          value: Sat, 15 Aug 2026 15:47:49 GMT
         - name: content-length
           value: "46"
       body:
         type: json
         data: |-
           {
-            "orderId": "ORD-999888",
-            "status": "processing"
+            "id": 3,
+            "message": "User created successfully"
           }
